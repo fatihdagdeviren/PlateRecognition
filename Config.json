@@ -1,0 +1,19 @@
+{
+      "IPCam1URL": "rtsp://155.223.207.48:554/av0_0",
+      "IPCam2URL": "rtsp://155.223.207.48:554/av0_0",
+      "SingleCamURL": "rtsp://155.223.207.48:554/av0_0",
+      "IsIPCamModeActive": "false",
+      "Debug": 1,
+      "LogFilePath": "Logs",
+      "Canny": {"MinValue": 150, "MaxValue": 200 },
+      "SingleThread":0,
+      "ShowImages": 0,
+      "Tesseract": {"Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng"
+      ,"WhiteList": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "Oem": "1", "Psm": "7"}
+      ,"ThreadSleepTime": 2
+      ,"MainSleepTime": 5
+      ,"Host": "localhost"
+      ,"Port": 9000
+      ,"Port2": 9001
+      ,"ResultImage": {"Width": 100,  "Height": 100}
+}

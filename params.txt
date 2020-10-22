@@ -1,0 +1,21 @@
+* Debug parametresi goruntu kaynağını ayarliyor.
+* Not: Windows Servis Haline getirmek için
+
+    Create an exe with pyinstaller (pip install pyinstaller) and python 3.5 :
+
+    (env)$ pyinstaller -F --hidden-import=win32timezone PRMain.py
+    Install and run the service
+
+    (env) dist\PRMain.exe install
+    Installing service TestService
+    Service installed
+
+    (env) dist\PRMain.exe start
+    Starting service TestService
+    Check C:\\TestService.log file.
+
+    Stop and clean
+
+    (env) dist\WindowsService.exe stop
+    (env) dist\WindowsService.exe remove
+**************************************************************************
