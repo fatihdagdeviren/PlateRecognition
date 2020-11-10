@@ -168,7 +168,7 @@ if __name__ == "__main__":
     myClass = UniPlateRecognition()
     myClass.debug = True
     # load the input image from disk and resize it
-    image = cv2.imread("..\car.jpg")
+    image = cv2.imread("..\\Temp\\3.jpg")
     image = imutils.resize(image, width=500)
 
     # apply automatic license plate recognition

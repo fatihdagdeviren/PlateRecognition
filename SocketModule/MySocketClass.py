@@ -3,15 +3,12 @@
 import socket  # aynı şekilde burada da içeri dahil ediyoruz
 
 class SocketSender():
-    def __init__(self, conf, portOrder = 0):
+    def __init__(self, conf):
         try:
             self.configuration = conf
             self.client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # bir socket nesnesi oluşturuyoruz
             self.host = self.configuration["Host"]  # bağlanacağımız adres
-            if portOrder == 0:
-                self.port = self.configuration["Port"]   # bağlanacağımız kapı
-            else:
-                self.port = self.configuration["Port2"]  # bağlanacağımız kapı
+            self.port = self.configuration["Port"]  # bağlanacağımız kapı
             # self.host = socket.gethostname()  # Get the local machine name
             self.configuration = conf
             self.client.bind((self.host, 0))

@@ -1,19 +1,66 @@
 {
-      "IPCam1URL": "rtsp://155.223.207.48:554/av0_0",
-      "IPCam2URL": "rtsp://155.223.207.48:554/av0_0",
-      "SingleCamURL": "rtsp://155.223.207.48:554/av0_0",
-      "IsIPCamModeActive": "false",
-      "Debug": 1,
+      "Debug": 0,
+      "MainSleepTime":1,
       "LogFilePath": "Logs",
-      "Canny": {"MinValue": 150, "MaxValue": 200 },
-      "SingleThread":0,
-      "ShowImages": 0,
-      "Tesseract": {"Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng"
-      ,"WhiteList": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "Oem": "1", "Psm": "7"}
-      ,"ThreadSleepTime": 2
-      ,"MainSleepTime": 5
-      ,"Host": "localhost"
-      ,"Port": 9000
-      ,"Port2": 9001
-      ,"ResultImage": {"Width": 100,  "Height": 100}
+      "SingleThread":1,
+      "Tesseract": {
+                    "Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng"
+                    ,"WhiteList": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "Oem": "1", "Psm": "7"
+                    }
+       ,"SingleThreadConfig": {
+                         "ThreadSleepTime": 0
+                          ,"MainSleepTime": 2
+                          ,"Host": "localhost"
+                          ,"Port": 9000                         
+                          ,"ResultImage": {"Width": 100,  "Height": 100}
+                          ,"SendImageFromUDP": 0
+                           ,"ResizeEnabled" : 0
+                          ,"ResizeDimension": {
+                                "Height": 480, "Width": 640
+                          }
+                          ,"CropCoordinates":{"HStart": 250, "HEnd": 600,"WStart":250,"WEnd": 800 }
+                          ,"EnableLog": 1
+                          ,"CropEnabled": 1
+                          ,"RotateAngle": 9
+                          ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
+                          ,"ShowImages": 1
+                          ,   "Canny": {"MinValue": 100, "MaxValue": 200 }
 }
+      ,"Thread1Config": {
+                        "Host": "localhost"
+                        ,"Port": 9000
+                        ,"ResultImage": {"Width": 100,  "Height": 100}
+                        ,"SendImageFromUDP": 0
+                         ,"ResizeEnabled" : 0
+                        ,"ResizeDimension": {
+                              "Height": 480, "Width": 640
+                        }
+                          ,"CropCoordinates":{"HStart": 250, "HEnd": 600,"WStart":250,"WEnd": 800 }
+                        ,"EnableLog": 1
+                        ,"CropEnabled": 1
+                        ,"RotateAngle": 9
+                        , "SleepTime":  0
+                        ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
+                        ,"ShowImages": 0
+                        ,"Canny": {"MinValue": 100, "MaxValue": 200 }
+}
+      ,"Thread2Config": {
+                          "Host": "localhost"
+                          ,"Port": 9001
+                          ,"ResultImage": {"Width": 100,  "Height": 100}
+                          ,"SendImageFromUDP": 0
+                           ,"ResizeEnabled" : 0
+                          ,"ResizeDimension": {
+                                "Height": 480, "Width": 640
+                          }
+                            ,"CropCoordinates":{"HStart": 250, "HEnd": 600,"WStart":250,"WEnd": 800 }
+                          ,"EnableLog": 1
+                          ,"CropEnabled": 1
+                          ,"RotateAngle": 9
+                          , "SleepTime":  0
+                          ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
+                          ,"ShowImages": 0
+                          ,   "Canny": {"MinValue": 100, "MaxValue": 200 }
+                        }
+}
+

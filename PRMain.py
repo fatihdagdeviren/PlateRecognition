@@ -14,36 +14,34 @@ def startThreads(myConfig):
         thread1Path = None
         thread2Path = None
         if int(myConfig["Debug"]) == 1:
-            thread1Path = "car.jpg"
-            thread2Path = "car2.jpg"
+            thread1Path = "Temp/40.jpg"
+            thread2Path = "Temp/41.jpg"
         else:
-            thread1Path = myConfig["IPCam1URL"]
-            thread2Path = myConfig["IPCam2URL"]
-        thread1 = myThread(1, "Thread-1", thread1Path, myConfig)
-        thread2 = myThread(2, "Thread-2", thread2Path, myConfig)
+            thread1Path = myConfig["Thread1Config"]["URL"]
+            thread2Path = myConfig["Thread2Config"]["URL"]
+        thread1 = myThread(1, "Thread-1", thread1Path, myConfig, "Thread1Config")
+        thread2 = myThread(2, "Thread-2", thread2Path, myConfig, "Thread2Config")
         # Start new Threads
         thread1.start()
         thread2.start()
     except BaseException as e:
         print("Error: unable to start thread_{0}".format(str(e)))
         exit()
-    count = 0
     while 1:
         try:
-            count += 1
             time.sleep(int(myConfig["MainSleepTime"]))
             if thread1.isException == True:
                 thread1.kill()
                 thread1.join()
                 # print("******************* 1 Yeniden Olusuyor**************")
-                thread1 = myThread(1, "Thread-1", thread1Path, myConfig)
+                thread1 = myThread(1, "Thread-1", thread1Path, myConfig, "Thread1Config")
                 thread1.start()
 
             if thread2.isException == True:
                 thread2.kill()
                 thread2.join()
                 # print("*******************  2 Yeniden Olusuyor**************")
-                thread2 = myThread(2, "Thread-2", thread2Path, myConfig)
+                thread2 = myThread(2, "Thread-2", thread2Path, myConfig, "Thread2Config")
                 thread2.start()
 
         except BaseException  as e:
@@ -52,18 +50,18 @@ def startThreads(myConfig):
             thread1.join()
             thread2.kill()
             thread2.join()
-            thread1 = myThread(1, "Thread-1", thread1Path, myConfig)
-            thread2 = myThread(2, "Thread-2", thread2Path, myConfig)
+            thread1 = myThread(1, "Thread-1", thread1Path, myConfig, "Thread1Config")
+            thread2 = myThread(2, "Thread-2", thread2Path, myConfig, "Thread2Config")
             thread1.start()
             thread2.start()
 
 def singleModel(myConfig):
     singlePath = None
     if int(myConfig["Debug"]) == 1:
-        singlePath = "car.jpg"
+        singlePath = "Temp/car.jpg"
     else:
-        singlePath = myConfig["SingleCamURL"]
-    mySingleModel = singleModelClass("Single", singlePath, myConfig)
+        singlePath = myConfig["SingleThreadConfig"]["URL"]
+    mySingleModel = singleModelClass("Single", singlePath, myConfig, "SingleThreadConfig")
     mySingleModel.run()
 
 if __name__ == "__main__":

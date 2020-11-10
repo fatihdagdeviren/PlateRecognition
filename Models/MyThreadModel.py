@@ -7,26 +7,28 @@ import cv2
 import SocketModule.MySocketClass as msc
 
 class myThread (threading.Thread):
-   def __init__(self, threadID, name, _imagePath, _config):
+   def __init__(self, threadID, name, _imagePath, _masterConfig, _configKey):
       threading.Thread.__init__(self)
       # print("Init Oldu _ {0}".format(threadID))
       self.threadID = threadID
       self.name = name
       self.imagePath = _imagePath
-      self.Config = _config
-      self.debug = self.Config["Debug"]
+      self.Config = _masterConfig[_configKey]
+      self.tesseractConfig = _masterConfig["Tesseract"]
+      self.debug = _masterConfig["Debug"]
       self.killed = False
       self.isException = False
       self.resultVal = None
       self.result = None
       epoch_time = int(time.time())
-      self.logFilePath = self.Config["LogFilePath"] +"\Thread_{0}_{1}.txt".format(name, epoch_time)
-      self.logFile = open(self.logFilePath, 'w+')
+      self.logFilePath = _masterConfig["LogFilePath"] +"\Thread_{0}_{1}.txt".format(name, epoch_time)
+      if self.Config["EnableLog"] == 1:
+         self.logFile = open(self.logFilePath, 'w+')
       self.base64Image = None
-      self.portOrder = 0
-      if self.threadID == 2:
-         self.portOrder = 1
-      self.mySocketModel = msc.SocketSender(self.Config, self.portOrder)
+      self.mySocketModel = msc.SocketSender(self.Config)
+      self.cap = cv2.VideoCapture(self.imagePath)
+      self.myPlateRecognizer = pr.PlateRecognizer(self.Config, self.tesseractConfig)
+
 
    def globaltrace(self, frame, event, arg):
       # call Before a function is executed.
@@ -47,25 +49,27 @@ class myThread (threading.Thread):
          self.__run_backup()
          self.run = self.__run_backup
          while not self.killed:
-            if int(self.Config["Debug"] == 1):
+            if self.debug == 1:
                image = cv2.imread(self.imagePath)
             else:
-               cap = cv2.VideoCapture(self.imagePath)
-               ret, image = cap.read()
+               ret, image = self.cap.read()
+               self.appendLog("Görüntü Okundu -" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
 
-            self.resultVal, self.result, self.base64Image = pr.RecognizePlate(self.name, image, self.Config)
+            self.resultVal, self.result, self.base64Image = self.myPlateRecognizer.RecognizePlate(self.name, image)
             self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
-
-            object = {
-               'Source': "'"+str(self.name)+"'",
-               'Result': "'" + str(self.result) + "'",
-               'ResultVal': "'" + str(self.resultVal) + "'",
-               'Image': "'" + self.base64Image + "'"}
-
-            res = "{" + ",".join(("{}:{}".format(*i) for i in object.items())) + "}"  # a=Apple,c=cat,b=ball
-            self.mySocketModel.send(res)
-            time.sleep(int(self.Config["ThreadSleepTime"]))
-
+            # if self.Config["SendImageFromUDP"] == 0:
+            #    self.base64Image = ""
+            # object = {
+            #    'Source': "'"+str(self.name)+"'",
+            #    'Result': "'" + str(self.result) + "'",
+            #    'ResultVal': "'" + str(self.resultVal) + "'",
+            #    'Image': "'" + self.base64Image + "'"}
+            #
+            # res = "{" + ",".join(("{}:{}".format(*i) for i in object.items())) + "}"
+            # self.mySocketModel.send(res)
+            # sleepTime = int(self.Config["SleepTime"])
+            # if sleepTime > 0:
+            #    time.sleep(int(self.Config["SleepTime"]))
       except BaseException as e:
          self.isException = True
 
@@ -81,11 +85,12 @@ class myThread (threading.Thread):
       self.killed = True
 
    def appendLog(self, text):
-      # hatayi ezeyim burada
-      try:
-            with open(self.logFilePath, "a+") as self.logFile:
-               self.logFile.write(text)
-      except BaseException as e:
-         pass
+      if self.Config["EnableLog"] == 1:
+         # hatayi ezeyim burada
+         try:
+               with open(self.logFilePath, "a+") as self.logFile:
+                  self.logFile.write(text)
+         except BaseException as e:
+            pass
 
 
