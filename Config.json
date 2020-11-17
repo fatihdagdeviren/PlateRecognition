@@ -2,14 +2,14 @@
       "Debug": 0,
       "MainSleepTime":1,
       "LogFilePath": "Logs",
-      "SingleThread":1,
+      "SingleThread":0,
       "Tesseract": {
                     "Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng"
                     ,"WhiteList": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "Oem": "1", "Psm": "7"
                     }
        ,"SingleThreadConfig": {
-                         "ThreadSleepTime": 0
-                          ,"MainSleepTime": 2
+                          "ThreadSleepTime": 0
+                          ,"OCRSleepTime": 1
                           ,"Host": "localhost"
                           ,"Port": 9000                         
                           ,"ResultImage": {"Width": 100,  "Height": 100}
@@ -27,6 +27,8 @@
                           ,   "Canny": {"MinValue": 100, "MaxValue": 200 }
 }
       ,"Thread1Config": {
+                        "ThreadSleepTime": 1,
+                        "OCRSleepTime": 2,
                         "Host": "localhost"
                         ,"Port": 9000
                         ,"ResultImage": {"Width": 100,  "Height": 100}
@@ -45,6 +47,8 @@
                         ,"Canny": {"MinValue": 100, "MaxValue": 200 }
 }
       ,"Thread2Config": {
+                          "ThreadSleepTime": 1,
+                          "OCRSleepTime": 2,
                           "Host": "localhost"
                           ,"Port": 9001
                           ,"ResultImage": {"Width": 100,  "Height": 100}

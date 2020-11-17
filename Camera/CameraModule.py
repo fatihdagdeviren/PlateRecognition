@@ -33,7 +33,7 @@ class camera():
                 #if frame requested
                 ret,frame = cap.read()
                 conn.send(frame)
-            elif rec_dat ==2:
+            elif rec_dat == 2:
                 #if close requested
                 cap.release()
                 run = False

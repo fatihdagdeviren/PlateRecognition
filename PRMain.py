@@ -14,8 +14,8 @@ def startThreads(myConfig):
         thread1Path = None
         thread2Path = None
         if int(myConfig["Debug"]) == 1:
-            thread1Path = "Temp/40.jpg"
-            thread2Path = "Temp/41.jpg"
+            thread1Path = "Temp/car.jpg"
+            thread2Path = "Temp/car2.jpg"
         else:
             thread1Path = myConfig["Thread1Config"]["URL"]
             thread2Path = myConfig["Thread2Config"]["URL"]

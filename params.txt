@@ -1,4 +1,4 @@
 conda activate python36
 pyinstaller -F --noconsole PRMain.py
-      ,"CropCoordinates":{"HStart": 290, "HEnd": 335,"WStart":200,"WEnd": 350 }
+       ,"CropCoordinates":{"HStart": 250, "HEnd": 600,"WStart":250,"WEnd": 800 }
 **************************************************************************

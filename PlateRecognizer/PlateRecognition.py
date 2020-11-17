@@ -4,14 +4,14 @@ import imutils
 import base64
 import math
 import pytesseract
+
 #TODO: temizlenecek burası.
 #TODO: Configuration eklenecek.
 
 
 class PlateRecognizer():
-    def __init__(self, _configuration, _tesseractConf):
+    def __init__(self, _configuration):
         self.configuration = _configuration
-        self.tesseractConfiguration = _tesseractConf
 
     def get_center(self, contour):
         M = cv2.moments(contour)
@@ -104,16 +104,9 @@ class PlateRecognizer():
                     # NumberPlateCnt = approx
                     NumberPlateCnts.append(approx)
 
-            found = False
-            # Configuration for tesseract
-            tesseractConfig = ('-c tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(self.tesseractConfiguration["WhiteList"],
-                                                                                                  self.tesseractConfiguration["Lang"],
-                                                                                                  self.tesseractConfiguration["Oem"],
-                                                                                                  self.tesseractConfiguration["Psm"]))
             if len(NumberPlateCnts) == 0:
-                return False, "Plaka Bulunamadi.", ""
+                return False, "Plaka Bulunamadi.", "", None
 
-            text = "Empty"
 
             # Masking the part other than the number plate
             mask = np.zeros(gray.shape, np.uint8)
@@ -148,21 +141,14 @@ class PlateRecognizer():
                 # cv2.waitKey(1000)
 
 
-                #TODO: buraya farklı bir yontem, contor sayma yapilacak.
-                # Run tesseract OCR on image
-                # text = pytesseract.image_to_string(new_image, config=tesseractConfig).replace('\n','').replace('\r','').replace('\t','').replace('\f','').rstrip()
-                # print(text)
-                # if len(text) >= 5:
-                #     break
-
             if showImages == 1:
                 cv2.imshow("Original Image", image)
                 # cv2.imshow("1 - Grayscale Conversion", gray)
                 # cv2.imshow("2 - Bilateral Filter", gray)
                 # cv2.imshow("4 - Canny Edges", edged)
                 # cv2.imshow("4 - thresh1", thresh1)
-                cv2.imshow("roiImage", roiImage)
-                # cv2.imshow("Final_image", new_image)
+                # cv2.imshow("roiImage", roiImage)
+                cv2.imshow("Final_image", new_image)
                 cv2.waitKey(1)
 
             # text = pytesseract.image_to_string(roiImage, config=tesseractConfig).replace('\n','').replace('\r','').replace('\t','').replace('\f','').rstrip()
@@ -170,13 +156,11 @@ class PlateRecognizer():
             retImage = cv2.resize(image, (self.configuration["ResultImage"]["Width"], self.configuration["ResultImage"]["Height"]))
             retval, buffer = cv2.imencode('.jpg', retImage)
             myImageBase64 = base64.b64encode(buffer).decode('utf-8')
-            filteredText = text.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
-            # Print recognized text
-            retVal = (filteredText is not "")
-            return retVal, filteredText, myImageBase64
+            resultVal = (roiImage is not None)
+            return resultVal, "", myImageBase64, roiImage
 
         except BaseException as e:
-            return False, str(e), ""
+            return False, str(e), "", None
 
 
 
