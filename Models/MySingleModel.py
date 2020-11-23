@@ -17,6 +17,16 @@ class singleModelClass():
                                                                                               _masterConfig["Tesseract"]["Lang"],
                                                                                               _masterConfig["Tesseract"]["Oem"],
                                                                                               _masterConfig["Tesseract"]["Psm"]))
+
+        self.tesseractConfigChar = ('-c tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(_masterConfig["Tesseract"]["WhiteListChar"],
+                                                                                                   _masterConfig["Tesseract"]["Lang"],
+                                                                                                   _masterConfig["Tesseract"]["Oem"],
+                                                                                                   _masterConfig["Tesseract"]["Psm"]))
+
+        self.tesseractConfigNumeric = ('-c tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(_masterConfig["Tesseract"]["WhiteListNumeric"],
+                                                                                                   _masterConfig["Tesseract"]["Lang"],
+                                                                                                   _masterConfig["Tesseract"]["Oem"],
+                                                                                                   _masterConfig["Tesseract"]["Psm"]))
         self.debug = _masterConfig["Debug"]
         self.isException = False
         self.resultVal = None
@@ -27,10 +37,8 @@ class singleModelClass():
             self.logFile = open(self.logFilePath, 'w+')
         self.base64Image = None
         self.mySocketModel = msc.SocketSender(self.Config)
-        # self.cap = cv2.VideoCapture(self.imagePath)
-        # self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-        # self.cap.set(cv2.CAP_PROP_FPS, 2)
-        # self.cap.set(cv2.CAP_PROP_POS_FRAMES, 1)
+        self.divideEnabled = (int(self.Config["DividePlateIntoParts"]) == 1)
+        self.dividedParts = []
         self.myPlateRecognizer = pr.PlateRecognizer(self.Config)
         self.cam = cm.camera(self.imagePath)
         self.daemonThread = threading.Thread(target=self.print_work, name=self.name, daemon=True)
@@ -41,30 +49,46 @@ class singleModelClass():
     """
     def print_work(self):
         while 1:
+            continue
             if self.result is not None:
-                try:
-                    if self.roiImage is not None:
-                        text = pytesseract.image_to_string(self.roiImage, config=self.tesseractConfig).replace('\n','').replace('\r','').replace('\t','').replace('\f','').rstrip()
-                        filteredText = text.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
-                        self.result = filteredText
-                    print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
-                    self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
-                    if self.Config["SendImageFromUDP"] == 0:
-                       self.base64Image = ""
-                    object = {
-                               'Source': "'" + str(self.name) + "'",
-                               'Result': "'"+str(self.result)+"'",
-                                'ResultVal': "'"+str(self.resultVal)+"'",
-                                'Image': "'"+self.base64Image+"'"}
+                if not self.divideEnabled:
+                    try:
+                        if self.roiImage is not None:
+                            text = pytesseract.image_to_string(self.roiImage, config=self.tesseractConfig).replace('\n','').replace('\r','').replace('\t','').replace('\f','').rstrip()
+                            filteredText = text.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+                            self.result = filteredText
+                        print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+                        self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
+                        if self.Config["SendImageFromUDP"] == 0:
+                           self.base64Image = ""
+                        object = {
+                                   'Source': "'" + str(self.name) + "'",
+                                   'Result': "'"+str(self.result)+"'",
+                                    'ResultVal': "'"+str(self.resultVal)+"'",
+                                    'Image': "'"+self.base64Image+"'"}
 
-                    res = "{" + ",".join(("{}:{}".format(*i) for i in object.items())) + "}"
-                    self.mySocketModel.send(res)
-                    sleepTime = int(self.Config["OCRSleepTime"])
-                    if sleepTime > 0:
-                        time.sleep(int(self.Config["OCRSleepTime"]))
-                except BaseException as e:
-                    self.appendLog("print_work Error:" + str(e) + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
-                    pass
+                        res = "{" + ",".join(("{}:{}".format(*i) for i in object.items())) + "}"
+                        self.mySocketModel.send(res)
+                        sleepTime = int(self.Config["OCRSleepTime"])
+                        if sleepTime > 0:
+                            time.sleep(int(self.Config["OCRSleepTime"]))
+                    except BaseException as e:
+                        self.appendLog("print_work Error:" + str(e) + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
+                        pass
+                else:
+                    try:
+                        if len(self.dividedParts) == 3:
+                            textBaslangic = pytesseract.image_to_string(self.dividedParts[0], config=self.tesseractConfigNumeric).replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+                            filteredTextBaslangic = textBaslangic.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+                            # print(filteredTextBaslangic)
+                            textOrta = pytesseract.image_to_string(self.dividedParts[1], config=self.tesseractConfigChar).replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+                            filteredTextOrta = textOrta.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+                            textSon = pytesseract.image_to_string(self.dividedParts[2], config=self.tesseractConfigNumeric).replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+                            filteredTextSon = textSon.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+                            print(filteredTextBaslangic , filteredTextOrta,  filteredTextSon)
+                    except BaseException as e:
+                        self.appendLog("print_work Error:" + str(e) + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
+                        pass
 
     """
           iş yapan thread
@@ -80,7 +104,7 @@ class singleModelClass():
                 self.appendLog("Görüntü Okundu -" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                 # cv2.imshow("image",image)
                 # cv2.waitKey(1)
-            self.resultVal, self.result, self.base64Image, self.roiImage = self.myPlateRecognizer.RecognizePlate(self.name, image)
+            self.resultVal, self.result, self.base64Image, self.roiImage, self.dividedParts = self.myPlateRecognizer.RecognizePlate(self.name, image)
             # self.roiImage = cv2.imread("D:\\OutSource\PlateRecognition\\Temp\\deneme2.png")
 
     def appendLog(self, text):

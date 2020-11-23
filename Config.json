@@ -2,10 +2,11 @@
       "Debug": 0,
       "MainSleepTime":1,
       "LogFilePath": "Logs",
-      "SingleThread":0,
+      "SingleThread":1,
       "Tesseract": {
                     "Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng"
-                    ,"WhiteList": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "Oem": "1", "Psm": "7"
+                    ,"WhiteList": "ABCDEFGHIJKLMNOPRSTUVYZ0123456789", "Oem": "1", "Psm": "7"
+                    ,"WhiteListChar": "ABCDEFGHIJKLMNOPRSTUVYZ","WhiteListNumeric": "0123456789"
                     }
        ,"SingleThreadConfig": {
                           "ThreadSleepTime": 0
@@ -18,13 +19,14 @@
                           ,"ResizeDimension": {
                                 "Height": 480, "Width": 640
                           }
-                          ,"CropCoordinates":{"HStart": 250, "HEnd": 600,"WStart":250,"WEnd": 800 }
+                          ,"CropCoordinates":{"HStart": 150, "HEnd": 650,"WStart":250,"WEnd": 1100 }
                           ,"EnableLog": 1
                           ,"CropEnabled": 1
                           ,"RotateAngle": 9
                           ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
                           ,"ShowImages": 1
                           ,   "Canny": {"MinValue": 100, "MaxValue": 200 }
+                          , "DividePlateIntoParts": 1
 }
       ,"Thread1Config": {
                         "ThreadSleepTime": 1,
@@ -44,7 +46,7 @@
                         , "SleepTime":  0
                         ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
                         ,"ShowImages": 0
-                        ,"Canny": {"MinValue": 100, "MaxValue": 200 }
+                        ,"Canny": {"MinValue": 100, "MaxValue": 200 } , "DividePlateIntoParts": 0
 }
       ,"Thread2Config": {
                           "ThreadSleepTime": 1,
@@ -64,7 +66,7 @@
                           , "SleepTime":  0
                           ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
                           ,"ShowImages": 0
-                          ,   "Canny": {"MinValue": 100, "MaxValue": 200 }
+                          ,   "Canny": {"MinValue": 100, "MaxValue": 200 } , "DividePlateIntoParts": 0
                         }
 }
 

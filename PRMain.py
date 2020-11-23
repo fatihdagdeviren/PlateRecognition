@@ -65,6 +65,24 @@ def singleModel(myConfig):
     mySingleModel.run()
 
 if __name__ == "__main__":
+
+
+    # myConfigParams = conf.GetConfigFromFile()
+    # import pytesseract
+    # import cv2
+    # setTesseractPath(myConfigParams)
+    # im = cv2.imread("Temp/00.jpg")
+    # text = pytesseract.image_to_string(im, config=('-c tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(myConfigParams["Tesseract"]["WhiteList"],
+    #                                                                                           myConfigParams["Tesseract"]["Lang"],
+    #                                                                                           myConfigParams["Tesseract"]["Oem"],
+    #                                                                                           myConfigParams["Tesseract"]["Psm"]))).replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+    #
+    #
+    # print(text)
+    # cv2.imshow("im", im)
+    # cv2.waitKey(0)
+
+
     if not os.path.exists('Logs'):
         os.makedirs('Logs')
     # Create two threads as follows
