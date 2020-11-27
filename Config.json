@@ -4,8 +4,8 @@
       "LogFilePath": "Logs",
       "SingleThread":1,
       "Tesseract": {
-                    "Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng"
-                    ,"WhiteList": "ABCDEFGHIJKLMNOPRSTUVYZ0123456789", "Oem": "1", "Psm": "7"
+                    "Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng+deu+fra+ita+spa+por"
+                    ,"WhiteList": "ABCDEFGHIJKLMNOPRSTUVYZ0123456789", "Oem": "3", "Psm": "7"
                     ,"WhiteListChar": "ABCDEFGHIJKLMNOPRSTUVYZ","WhiteListNumeric": "0123456789"
                     }
        ,"SingleThreadConfig": {
@@ -26,11 +26,11 @@
                           ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
                           ,"ShowImages": 1
                           ,   "Canny": {"MinValue": 100, "MaxValue": 200 }
-                          , "DividePlateIntoParts": 1
+                          , "DividePlateIntoParts": 0
 }
       ,"Thread1Config": {
                         "ThreadSleepTime": 1,
-                        "OCRSleepTime": 2,
+                        "OCRSleepTime": 1,
                         "Host": "localhost"
                         ,"Port": 9000
                         ,"ResultImage": {"Width": 100,  "Height": 100}
@@ -39,7 +39,7 @@
                         ,"ResizeDimension": {
                               "Height": 480, "Width": 640
                         }
-                          ,"CropCoordinates":{"HStart": 250, "HEnd": 600,"WStart":250,"WEnd": 800 }
+                         ,"CropCoordinates":{"HStart": 150, "HEnd": 650,"WStart":250,"WEnd": 1100 }
                         ,"EnableLog": 1
                         ,"CropEnabled": 1
                         ,"RotateAngle": 9
@@ -50,7 +50,7 @@
 }
       ,"Thread2Config": {
                           "ThreadSleepTime": 1,
-                          "OCRSleepTime": 2,
+                          "OCRSleepTime": 1,
                           "Host": "localhost"
                           ,"Port": 9001
                           ,"ResultImage": {"Width": 100,  "Height": 100}
@@ -59,7 +59,7 @@
                           ,"ResizeDimension": {
                                 "Height": 480, "Width": 640
                           }
-                            ,"CropCoordinates":{"HStart": 250, "HEnd": 600,"WStart":250,"WEnd": 800 }
+                         ,"CropCoordinates":{"HStart": 150, "HEnd": 650,"WStart":250,"WEnd": 1100 }
                           ,"EnableLog": 1
                           ,"CropEnabled": 1
                           ,"RotateAngle": 9

@@ -91,13 +91,6 @@ class PlateRecognizer():
             # Morph Dilation
             dilation = cv2.dilate(edged, kernel=kernelForDilation, iterations=1)
 
-            # cv2.imshow("otsuImage", otsuImage)
-            # cv2.imshow("edged",edged)
-            # cv2.imshow("gray", gray)
-            # cv2.imshow("grayCop", grayCop)
-            # cv2.imshow("dilation", dilation)
-            # cv2.waitKey(1)
-
             (cnts, new) = cv2.findContours(dilation.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
             cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[:30]
 
@@ -130,29 +123,28 @@ class PlateRecognizer():
                 if len(roiCntsList) > 15:
                     angle = self.get_angle(box[0], box[1])
                     roiImage = new_image[y:y + h, x:x + w]
-
-
                     if 25 > angle > 3:
                         # box = cv2.boxPoints(rect)
                         # box = np.int0(box)
                         # cv2.imshow("DondurmedenOnce", roiImage)
+                        # (h, w) = roiImage.shape[:2]
+                        # center = (w // 2, h // 2)
+                        # M = cv2.getRotationMatrix2D(center, angle, 1.0)
+                        # roiImage = cv2.warpAffine(roiImage, M, (w, h),
+                        #                          flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
                         roiImage = imutils.rotate(roiImage, angle=math.ceil(angle))
-                        # cv2.imshow("DondurmedenSonra", roiImage)
+                        # cv2.imshow("rotated", roiImage)
 
                     roiImage = cv2.cvtColor(roiImage, cv2.COLOR_BGR2GRAY)
                     roiImage = cv2.bilateralFilter(roiImage, 13, 15, 15)
                     # roiImage = cv2.resize(roiImage, None, fx=2, fy=2)
                     # roiImage = cv2.erode(roiImage, kernel=kernelForDilationRoiImage, iterations=1)
-                    roiImage = cv2.morphologyEx(roiImage, cv2.MORPH_OPEN, kernelForDilationRoiImage)
-                    roiImage = cv2.erode(roiImage, kernel=kernelForDilationRoiImage, iterations=1)
+                    # roiImage = cv2.morphologyEx(roiImage, cv2.MORPH_OPEN, kernelForDilationRoiImage)
+                    roiImage = cv2.dilate(roiImage, kernel=kernelForDilation, iterations=2)
+                    roiImage = cv2.erode(roiImage, kernel=kernelForDilationRoiImage, iterations=3)
                     # cv2.imshow("MorphSonrasi", roiImage)
                     roiImage = cv2.threshold(roiImage, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
                     # Invert and perform text extraction
-
-                    # Slinebilir beforeInverse
-                    # beforeInverse = roiImage.copy()
-                    # beforeInverse = cv2.dilate(beforeInverse, kernel=kernelForDilationRoiImage, iterations=1)
-                    # cv2.imshow("beforeInverse", beforeInverse)
 
                     roiImage = 255 - roiImage
                     # roiImage = cv2.resize(roiImage, None, fx=2, fy=2)
@@ -215,6 +207,9 @@ class PlateRecognizer():
                         dividedParts.append(ilKoduImage)
                         dividedParts.append(roiOrtaAlan)
                         dividedParts.append(sonAlan)
+                        # cv2.imshow("ilKoduImage", ilKoduImage)
+                        # cv2.imshow("roiOrtaAlan", roiOrtaAlan)
+                        # cv2.imshow("sonAlan", sonAlan)
                     #endregion
 
                     # for (x, y, w, h, roiCntAreaT) in roiCntsListTresh:
@@ -232,9 +227,19 @@ class PlateRecognizer():
                 # cv2.waitKey(1000)
 
 
+            # roiImage = cv2.dilate(roiImage, kernel=kernelForDilation, iterations=3)
+            # dimResize = 300, 200
+            # roiImage = cv2.resize(roiImage, (dimResize))
+            # kernelForDilationRoiImage2 = np.ones((4, 4), np.uint8)
+            # roiImage = cv2.dilate(roiImage, kernel=kernelForDilationRoiImage2, iterations=1)
+
             if showImages == 1:
+                cv2.imshow("roiImage", roiImage)
                 cv2.imshow("Original Image", image)
                 cv2.imshow("Final_image", new_image)
+                cv2.imwrite("roiImage.jpg", roiImage)
+                cv2.imwrite("Original.jpg", image)
+                cv2.imwrite("Final_image.jpg", new_image)
                 cv2.waitKey(1)
 
             # text = pytesseract.image_to_string(roiImage, config=tesseractConfig).replace('\n','').replace('\r','').replace('\t','').replace('\f','').rstrip()
@@ -243,7 +248,8 @@ class PlateRecognizer():
             retval, buffer = cv2.imencode('.jpg', retImage)
             myImageBase64 = base64.b64encode(buffer).decode('utf-8')
             resultVal = (roiImage is not None)
-            return resultVal, "", myImageBase64, roiImage, dividedParts
+            # cv2.imwrite("thresh1.jpg",roiImage)
+            return resultVal, "", myImageBase64, roiImage, []
 
         except BaseException as e:
             return False, str(e), "", None, []

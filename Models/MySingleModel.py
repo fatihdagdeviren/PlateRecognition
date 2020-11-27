@@ -13,6 +13,7 @@ class singleModelClass():
         self.imagePath = _imagePath
         self.Config = _masterConfig[_configKey]
         # Configuration for tesseract
+        # preserve_interword_spaces=1
         self.tesseractConfig = ('-c tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(_masterConfig["Tesseract"]["WhiteList"],
                                                                                               _masterConfig["Tesseract"]["Lang"],
                                                                                               _masterConfig["Tesseract"]["Oem"],
@@ -44,18 +45,29 @@ class singleModelClass():
         self.daemonThread = threading.Thread(target=self.print_work, name=self.name, daemon=True)
         self.daemonThread.start()
 
+    def checkPlate(self, plateText):
+        returnText = plateText
+        try:
+            arr = plateText.split(' ')
+            if len(arr) == 3:
+                ortaBolum = arr[1].replace('0', 'O').replace('2', 'Z')
+                sonBolum = arr[2].replace('O', '0').replace("Z","2")
+                returnText = "{0}{1}{2}".format(arr[0], ortaBolum, sonBolum )
+            return returnText
+        except BaseException as e:
+            return returnText
     """
        Bu classtaki thread için porta data gonderen daemon thread
     """
     def print_work(self):
         while 1:
-            continue
             if self.result is not None:
                 if not self.divideEnabled:
                     try:
                         if self.roiImage is not None:
-                            text = pytesseract.image_to_string(self.roiImage, config=self.tesseractConfig).replace('\n','').replace('\r','').replace('\t','').replace('\f','').rstrip()
+                            text = pytesseract.image_to_string(self.roiImage.copy(), config=self.tesseractConfig)
                             filteredText = text.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+                            # cv2.imwrite("{0}.jpg".format(filteredText),image)
                             self.result = filteredText
                         print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
                         self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
@@ -69,9 +81,6 @@ class singleModelClass():
 
                         res = "{" + ",".join(("{}:{}".format(*i) for i in object.items())) + "}"
                         self.mySocketModel.send(res)
-                        sleepTime = int(self.Config["OCRSleepTime"])
-                        if sleepTime > 0:
-                            time.sleep(int(self.Config["OCRSleepTime"]))
                     except BaseException as e:
                         self.appendLog("print_work Error:" + str(e) + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                         pass
@@ -85,11 +94,26 @@ class singleModelClass():
                             filteredTextOrta = textOrta.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
                             textSon = pytesseract.image_to_string(self.dividedParts[2], config=self.tesseractConfigNumeric).replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
                             filteredTextSon = textSon.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
-                            print(filteredTextBaslangic , filteredTextOrta,  filteredTextSon)
+                            filteredTextResult = "{0}{1}{2}".format(filteredTextBaslangic, filteredTextOrta, filteredTextSon)
+                            self.result = filteredTextResult
+                            print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+                            if self.Config["SendImageFromUDP"] == 0:
+                                self.base64Image = ""
+                            object = {
+                                'Source': "'" + str(self.name) + "'",
+                                'Result': "'" + str(self.result) + "'",
+                                'ResultVal': "'" + str(self.resultVal) + "'",
+                                'Image': "'" + self.base64Image + "'"}
+
+                            res = "{" + ",".join(("{}:{}".format(*i) for i in object.items())) + "}"
+                            self.mySocketModel.send(res)
                     except BaseException as e:
                         self.appendLog("print_work Error:" + str(e) + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                         pass
 
+            sleepTime = int(self.Config["OCRSleepTime"])
+            if sleepTime > 0:
+                time.sleep(sleepTime)
     """
           iş yapan thread
     """

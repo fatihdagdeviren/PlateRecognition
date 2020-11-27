@@ -71,17 +71,17 @@ if __name__ == "__main__":
     # import pytesseract
     # import cv2
     # setTesseractPath(myConfigParams)
-    # im = cv2.imread("Temp/00.jpg")
-    # text = pytesseract.image_to_string(im, config=('-c tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(myConfigParams["Tesseract"]["WhiteList"],
-    #                                                                                           myConfigParams["Tesseract"]["Lang"],
-    #                                                                                           myConfigParams["Tesseract"]["Oem"],
-    #                                                                                           myConfigParams["Tesseract"]["Psm"]))).replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
+    # im = cv2.imread("Temp/unipa.jpg")
+    # while 1:
+    #     text = pytesseract.image_to_string(im, config=('-c preserve_interword_spaces=1 tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(myConfigParams["Tesseract"]["WhiteList"],
+    #                                                                                               myConfigParams["Tesseract"]["Lang"],
+    #                                                                                               myConfigParams["Tesseract"]["Oem"],
+    #                                                                                               myConfigParams["Tesseract"]["Psm"])))
     #
     #
-    # print(text)
-    # cv2.imshow("im", im)
-    # cv2.waitKey(0)
-
+    #     print(text)
+    #     cv2.imshow("im", im)
+    #     cv2.waitKey(1)
 
     if not os.path.exists('Logs'):
         os.makedirs('Logs')
