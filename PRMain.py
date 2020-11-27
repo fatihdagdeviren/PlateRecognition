@@ -65,15 +65,15 @@ def singleModel(myConfig):
     mySingleModel.run()
 
 if __name__ == "__main__":
-
+    # os.system("taskkill /f /im  PRMain.exe")
 
     # myConfigParams = conf.GetConfigFromFile()
     # import pytesseract
     # import cv2
     # setTesseractPath(myConfigParams)
-    # im = cv2.imread("Temp/unipa.jpg")
+    # im = cv2.imread("Temp/39NV855.jpg")
     # while 1:
-    #     text = pytesseract.image_to_string(im, config=('-c preserve_interword_spaces=1 tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(myConfigParams["Tesseract"]["WhiteList"],
+    #     text = pytesseract.image_to_string(im, config=('-c  tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(myConfigParams["Tesseract"]["WhiteList"],
     #                                                                                               myConfigParams["Tesseract"]["Lang"],
     #                                                                                               myConfigParams["Tesseract"]["Oem"],
     #                                                                                               myConfigParams["Tesseract"]["Psm"])))

@@ -4,8 +4,8 @@
       "LogFilePath": "Logs",
       "SingleThread":1,
       "Tesseract": {
-                    "Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng+deu+fra+ita+spa+por"
-                    ,"WhiteList": "ABCDEFGHIJKLMNOPRSTUVYZ0123456789", "Oem": "3", "Psm": "7"
+                    "Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng"
+                    ,"WhiteList": "ABCDEFGHIJKLMNOPRSTUVYZ0123456789", "Oem": "0", "Psm": "7"
                     ,"WhiteListChar": "ABCDEFGHIJKLMNOPRSTUVYZ","WhiteListNumeric": "0123456789"
                     }
        ,"SingleThreadConfig": {

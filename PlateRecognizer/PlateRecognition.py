@@ -207,9 +207,12 @@ class PlateRecognizer():
                         dividedParts.append(ilKoduImage)
                         dividedParts.append(roiOrtaAlan)
                         dividedParts.append(sonAlan)
-                        # cv2.imshow("ilKoduImage", ilKoduImage)
-                        # cv2.imshow("roiOrtaAlan", roiOrtaAlan)
-                        # cv2.imshow("sonAlan", sonAlan)
+                        # ilKoduImage =  cv2.resize(ilKoduImage, None, fx=2, fy=2)
+                        # roiOrtaAlan=  cv2.resize(roiOrtaAlan, None, fx=2, fy=2)
+                        # sonAlan = cv2.resize(sonAlan, None, fx=2, fy=2)
+                        cv2.imshow("ilKoduImage", ilKoduImage)
+                        cv2.imshow("roiOrtaAlan", roiOrtaAlan)
+                        cv2.imshow("sonAlan", sonAlan)
                     #endregion
 
                     # for (x, y, w, h, roiCntAreaT) in roiCntsListTresh:
@@ -230,16 +233,16 @@ class PlateRecognizer():
             # roiImage = cv2.dilate(roiImage, kernel=kernelForDilation, iterations=3)
             # dimResize = 300, 200
             # roiImage = cv2.resize(roiImage, (dimResize))
-            # kernelForDilationRoiImage2 = np.ones((4, 4), np.uint8)
+            # kernelForDilationRoiImage2 = np.ones((2, 2), np.uint8)
             # roiImage = cv2.dilate(roiImage, kernel=kernelForDilationRoiImage2, iterations=1)
 
             if showImages == 1:
                 cv2.imshow("roiImage", roiImage)
                 cv2.imshow("Original Image", image)
                 cv2.imshow("Final_image", new_image)
-                cv2.imwrite("roiImage.jpg", roiImage)
-                cv2.imwrite("Original.jpg", image)
-                cv2.imwrite("Final_image.jpg", new_image)
+                # cv2.imwrite("roiImage.jpg", roiImage)
+                # cv2.imwrite("Original.jpg", image)
+                # cv2.imwrite("Final_image.jpg", new_image)
                 cv2.waitKey(1)
 
             # text = pytesseract.image_to_string(roiImage, config=tesseractConfig).replace('\n','').replace('\r','').replace('\t','').replace('\f','').rstrip()

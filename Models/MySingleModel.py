@@ -6,6 +6,7 @@ import SocketModule.MySocketClass as msc
 import Camera.CameraModule as cm
 import threading
 import pytesseract
+import queue
 
 class singleModelClass():
     def __init__(self, name, _imagePath, _masterConfig, _configKey):
@@ -41,18 +42,25 @@ class singleModelClass():
         self.divideEnabled = (int(self.Config["DividePlateIntoParts"]) == 1)
         self.dividedParts = []
         self.myPlateRecognizer = pr.PlateRecognizer(self.Config)
-        self.cam = cm.camera(self.imagePath)
-        self.daemonThread = threading.Thread(target=self.print_work, name=self.name, daemon=True)
+
+        # self.cam = cm.camera(self.imagePath)
+
+        self.cap = cm.VideoCapture(self.imagePath)
+        self.daemonThread = threading.Thread(target=self.print_work, name=self.name,  daemon=True)
         self.daemonThread.start()
+
+
+        # read frames as soon as they are available, keeping only most recent one
 
     def checkPlate(self, plateText):
         returnText = plateText
         try:
             arr = plateText.split(' ')
             if len(arr) == 3:
-                ortaBolum = arr[1].replace('0', 'O').replace('2', 'Z')
-                sonBolum = arr[2].replace('O', '0').replace("Z","2")
-                returnText = "{0}{1}{2}".format(arr[0], ortaBolum, sonBolum )
+                basBolum = arr[0].replace('O', '0').replace("Z","2").replace('G','6').replace('B','8').replace('S','5')
+                ortaBolum = arr[1].replace('0', 'O').replace('2', 'Z').replace('6','G').replace('8','B').replace('5','S')
+                sonBolum = arr[2].replace('O', '0').replace("Z","2").replace('G','6').replace('B','8').replace('S','5')
+                returnText = "{0}{1}{2}".format(basBolum, ortaBolum, sonBolum )
             return returnText
         except BaseException as e:
             return returnText
@@ -61,15 +69,15 @@ class singleModelClass():
     """
     def print_work(self):
         while 1:
-            if self.result is not None:
+            if self.resultVal:
                 if not self.divideEnabled:
                     try:
                         if self.roiImage is not None:
                             text = pytesseract.image_to_string(self.roiImage.copy(), config=self.tesseractConfig)
                             filteredText = text.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
                             # cv2.imwrite("{0}.jpg".format(filteredText),image)
-                            self.result = filteredText
-                        print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+                            self.result = self.checkPlate(filteredText)
+                        # print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
                         self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                         if self.Config["SendImageFromUDP"] == 0:
                            self.base64Image = ""
@@ -97,6 +105,7 @@ class singleModelClass():
                             filteredTextResult = "{0}{1}{2}".format(filteredTextBaslangic, filteredTextOrta, filteredTextSon)
                             self.result = filteredTextResult
                             print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+                            self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                             if self.Config["SendImageFromUDP"] == 0:
                                 self.base64Image = ""
                             object = {
@@ -124,7 +133,8 @@ class singleModelClass():
             else:
 
                 # ret, image = self.cap.read()
-                image = self.cam.get_frame()
+                image = self.cap.read()
+                # image = self.cam.get_frame()
                 self.appendLog("Görüntü Okundu -" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                 # cv2.imshow("image",image)
                 # cv2.waitKey(1)

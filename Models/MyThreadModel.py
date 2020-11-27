@@ -45,7 +45,7 @@ class myThread (threading.Thread):
       self.mySocketModel = msc.SocketSender(self.Config)
       self.divideEnabled = (int(self.Config["DividePlateIntoParts"]) == 1)
       self.dividedParts = []
-      self.cam = cm.camera(self.imagePath)
+      self.cap = cm.VideoCapture(self.imagePath)
       self.myPlateRecognizer = pr.PlateRecognizer(self.Config)
       self.daemonThread = threading.Thread(target=self.print_work, name=self.name, daemon=True)
       self.daemonThread.start()
@@ -56,9 +56,10 @@ class myThread (threading.Thread):
      try:
          arr = plateText.split(' ')
          if len(arr) == 3:
-             ortaBolum = arr[1].replace('0', 'O').replace('2', 'Z')
-             sonBolum = arr[2].replace('O', '0').replace("Z","2")
-             returnText = "{0}{1}{2}".format(arr[0], ortaBolum, sonBolum )
+            basBolum = arr[0].replace('O', '0').replace("Z", "2").replace('G', '6').replace('B', '8').replace('S', '5')
+            ortaBolum = arr[1].replace('0', 'O').replace('2', 'Z').replace('6', 'G').replace('8', 'B').replace('5', 'S')
+            sonBolum = arr[2].replace('O', '0').replace("Z", "2").replace('G', '6').replace('B', '8').replace('S', '5')
+            returnText = "{0}{1}{2}".format(basBolum, ortaBolum, sonBolum)
          return returnText
      except BaseException as e:
          return returnText
@@ -67,14 +68,14 @@ class myThread (threading.Thread):
    """
    def print_work(self):
       while 1:
-         if self.result is not None:
+         if self.resultVal:
             if not self.divideEnabled:
                try:
                   if self.roiImage is not None:
                      text = pytesseract.image_to_string(self.roiImage, config=self.tesseractConfig).replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
                      filteredText = text.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
                      self.result = self.checkPlate(filteredText)
-                  print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+                  # print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
                   self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                   if self.Config["SendImageFromUDP"] == 0:
                      self.base64Image = ""
@@ -144,7 +145,7 @@ class myThread (threading.Thread):
             if self.debug == 1:
                image = cv2.imread(self.imagePath)
             else:
-               image = self.cam.get_frame()
+               image = self.cap.read()
                self.appendLog("Görüntü Okundu -" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
             self.resultVal, self.result, self.base64Image, self.roiImage , self.dividedParts = self.myPlateRecognizer.RecognizePlate(self.name, image)
       except BaseException as e:
