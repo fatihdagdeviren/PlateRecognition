@@ -1,4 +1,5 @@
 conda activate python36
 pyinstaller -F --noconsole PRMain.py
        ,"CropCoordinates":{"HStart": 250, "HEnd": 600,"WStart":250,"WEnd": 800 }
+** rtsp://155.223.207.85:554
 **************************************************************************

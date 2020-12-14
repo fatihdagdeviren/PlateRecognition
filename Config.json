@@ -4,7 +4,7 @@
       "LogFilePath": "Logs",
       "SingleThread":1,
       "Tesseract": {
-                    "Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "eng"
+                    "Path":  "C:\\Program Files\\Tesseract-OCR\\tesseract.exe","Lang": "unp8"
                     ,"WhiteList": "ABCDEFGHIJKLMNOPRSTUVYZ0123456789", "Oem": "0", "Psm": "7"
                     ,"WhiteListChar": "ABCDEFGHIJKLMNOPRSTUVYZ","WhiteListNumeric": "0123456789"
                     }
@@ -19,7 +19,7 @@
                           ,"ResizeDimension": {
                                 "Height": 480, "Width": 640
                           }
-                          ,"CropCoordinates":{"HStart": 150, "HEnd": 650,"WStart":250,"WEnd": 1100 }
+                          ,"CropCoordinates":{"HStart": 50, "HEnd": 500,"WStart":200,"WEnd": 700 }
                           ,"EnableLog": 1
                           ,"CropEnabled": 1
                           ,"RotateAngle": 9

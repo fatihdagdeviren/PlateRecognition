@@ -67,28 +67,53 @@ def singleModel(myConfig):
 if __name__ == "__main__":
     # os.system("taskkill /f /im  PRMain.exe")
 
-    # myConfigParams = conf.GetConfigFromFile()
-    # import pytesseract
-    # import cv2
-    # setTesseractPath(myConfigParams)
-    # im = cv2.imread("Temp/39NV855.jpg")
-    # while 1:
-    #     text = pytesseract.image_to_string(im, config=('-c  tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(myConfigParams["Tesseract"]["WhiteList"],
-    #                                                                                               myConfigParams["Tesseract"]["Lang"],
-    #                                                                                               myConfigParams["Tesseract"]["Oem"],
-    #                                                                                               myConfigParams["Tesseract"]["Psm"])))
-    #
-    #
-    #     print(text)
-    #     cv2.imshow("im", im)
-    #     cv2.waitKey(1)
+
 
     if not os.path.exists('Logs'):
         os.makedirs('Logs')
     # Create two threads as follows
     myConfigParams = conf.GetConfigFromFile()
     setTesseractPath(myConfigParams)
-    # print(myConfigParams["SingleThread"])
+    # print(myConfigParams["SingleThread"]) # myConfigParams = conf.GetConfigFromFile()
+    #     # import pytesseract
+    #     # import cv2
+    #     # import numpy as np
+    #     # from skimage.segmentation import clear_border
+    #     # setTesseractPath(myConfigParams)
+    #     # ima = cv2.imread("35KBG04.tiff")
+    #     # ima = cv2.cvtColor(ima, cv2.COLOR_BGR2GRAY)
+    #     #
+    #     #
+    #     #
+    #     # kernelForDilation = np.ones((2, 2), np.uint8)
+    #     # kernelForDilationRoiImage = np.ones((3, 3), np.uint8)
+    #     #
+    #     # # ima = cv2.resize(ima, None, fx=2, fy=2)
+    #     # # ima = cv2.GaussianBlur(ima,(5, 5),0)
+    #     #
+    #     # ima = cv2.dilate(ima, kernel=kernelForDilation, iterations=1)
+    #     # ima = cv2.erode(ima, kernel=kernelForDilation, iterations=1)
+    #     # ima = cv2.threshold(ima, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+    #     # # Invert and perform text extraction
+    #     # ima = clear_border(ima)
+    #     # ima = 255 - ima
+    #     # h, w = ima.shape
+    #     # ima = ima[5:h-8, 5:w-5]
+    #     #
+    #     # # im = 255-im
+    #     # # kernelForDilation = np.ones((2, 2), np.uint8)
+    #     # # im = cv2.bilateralFilter(im, 11, 21, 21)
+    #     # # im = cv2.erode(im, kernel=kernelForDilation, iterations=2)
+    #     # while 1:
+    #     #     text = pytesseract.image_to_string(ima, config=('-c  tessedit_char_whitelist={0} -l {1} --oem {2} --psm {3}'.format(myConfigParams["Tesseract"]["WhiteList"],
+    #     #                                                                                               myConfigParams["Tesseract"]["Lang"],
+    #     #                                                                                               myConfigParams["Tesseract"]["Oem"],
+    #     #                                                                                               myConfigParams["Tesseract"]["Psm"])))
+    #     #
+    #     #
+    #     #     print(text)
+    #     #     cv2.imshow("ima", ima)
+    #     #     cv2.waitKey(1)
     if myConfigParams["SingleThread"] == 1:
         singleModel(myConfigParams)
     else:

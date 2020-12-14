@@ -56,14 +56,25 @@ class singleModelClass():
         returnText = plateText
         try:
             arr = plateText.split(' ')
+            returnVal = False
             if len(arr) == 3:
-                basBolum = arr[0].replace('O', '0').replace("Z","2").replace('G','6').replace('B','8').replace('S','5')
-                ortaBolum = arr[1].replace('0', 'O').replace('2', 'Z').replace('6','G').replace('8','B').replace('5','S')
-                sonBolum = arr[2].replace('O', '0').replace("Z","2").replace('G','6').replace('B','8').replace('S','5')
-                returnText = "{0}{1}{2}".format(basBolum, ortaBolum, sonBolum )
-            return returnText
+                basBolum = arr[0].replace('O', '0').replace("Z","2").replace('G','6').replace('B','8').replace('S','5').replace('D','0').replace('A','4').replace('U','4')
+                ortaBolum = arr[1].replace('0', 'O').replace('2', 'Z').replace('6','G').replace('8','B').replace('5','S').replace('4','A')
+                sonBolum = arr[2].replace('O', '0').replace("Z","2").replace('G','6').replace('B','8').replace('S','5').replace('D','0').replace('A','4').replace('U','4')
+                returnText = "{0}{1}{2}".format(basBolum, ortaBolum, sonBolum)
+                returnValBas, boolValBas = self.intTryParse(basBolum)
+                returnValSon, boolValSon = self.intTryParse(sonBolum)
+                returnVal = (boolValBas and boolValSon) and (len(basBolum)==2)
+            return returnText, returnVal
         except BaseException as e:
-            return returnText
+            return returnText, False
+
+    def intTryParse(self, value):
+        try:
+            return int(value), True
+        except ValueError:
+            return value, False
+
     """
        Bu classtaki thread için porta data gonderen daemon thread
     """
@@ -73,22 +84,24 @@ class singleModelClass():
                 if not self.divideEnabled:
                     try:
                         if self.roiImage is not None:
+
                             text = pytesseract.image_to_string(self.roiImage.copy(), config=self.tesseractConfig)
                             filteredText = text.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
-                            # cv2.imwrite("{0}.jpg".format(filteredText),image)
-                            self.result = self.checkPlate(filteredText)
-                        # print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
-                        self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
-                        if self.Config["SendImageFromUDP"] == 0:
-                           self.base64Image = ""
-                        object = {
-                                   'Source': "'" + str(self.name) + "'",
-                                   'Result': "'"+str(self.result)+"'",
-                                    'ResultVal': "'"+str(self.resultVal)+"'",
-                                    'Image': "'"+self.base64Image+"'"}
+                            self.result, returnValCheckPlate = self.checkPlate(filteredText)
+                            print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+                            if bool(returnValCheckPlate):
+                                # print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+                                self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
+                                if self.Config["SendImageFromUDP"] == 0:
+                                   self.base64Image = ""
+                                object = {
+                                           'Source': "'" + str(self.name) + "'",
+                                           'Result': "'"+str(self.result)+"'",
+                                            'ResultVal': "'"+str(self.resultVal)+"'",
+                                            'Image': "'"+self.base64Image+"'"}
 
-                        res = "{" + ",".join(("{}:{}".format(*i) for i in object.items())) + "}"
-                        self.mySocketModel.send(res)
+                                res = "{" + ",".join(("{}:{}".format(*i) for i in object.items())) + "}"
+                                self.mySocketModel.send(res)
                     except BaseException as e:
                         self.appendLog("print_work Error:" + str(e) + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                         pass
