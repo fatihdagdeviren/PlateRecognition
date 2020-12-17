@@ -66,9 +66,6 @@ def singleModel(myConfig):
 
 if __name__ == "__main__":
     # os.system("taskkill /f /im  PRMain.exe")
-
-
-
     if not os.path.exists('Logs'):
         os.makedirs('Logs')
     # Create two threads as follows

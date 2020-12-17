@@ -54,7 +54,7 @@ class myThread (threading.Thread):
       returnText = plateText
       try:
          arr = plateText.split(' ')
-         returnVal = False
+         returnVal = True
          if len(arr) == 3:
             basBolum = arr[0].replace('O', '0').replace("Z", "2").replace('G', '6').replace('B', '8').replace('S', '5').replace('D', '0').replace('A', '4').replace('U', '4')
             ortaBolum = arr[1].replace('0', 'O').replace('2', 'Z').replace('6', 'G').replace('8', 'B').replace('5', 'S').replace('4', 'A')

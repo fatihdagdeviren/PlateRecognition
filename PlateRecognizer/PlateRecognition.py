@@ -62,6 +62,10 @@ class PlateRecognizer():
             # image = image[150:h, int(w/3)-50:int(w*2/3)+50]
 
             if cropImageEnabled == 1:
+                if self.configuration["SaveImage"] == 1:
+                    imageLog = cv2.rectangle(image.copy(), (self.configuration["CropCoordinates"]["WStart"],self.configuration["CropCoordinates"]["HStart"] )
+                                             , (self.configuration["CropCoordinates"]["WEnd"],self.configuration["CropCoordinates"]["HEnd"] ), (255, 0, 0), 2)
+                    cv2.imwrite("{0}.jpg".format(name),imageLog)
                 image = image[self.configuration["CropCoordinates"]["HStart"]:self.configuration["CropCoordinates"]["HEnd"]
                 , self.configuration["CropCoordinates"]["WStart"]:self.configuration["CropCoordinates"]["WEnd"]]
                 image = cv2.resize(image, None, fx=2, fy=2)

@@ -19,14 +19,15 @@
                           ,"ResizeDimension": {
                                 "Height": 480, "Width": 640
                           }
-                          ,"CropCoordinates":{"HStart": 50, "HEnd": 500,"WStart":200,"WEnd": 700 }
+                          ,"CropCoordinates":{"HStart": 150, "HEnd": 400,"WStart":250,"WEnd": 750 }
                           ,"EnableLog": 1
                           ,"CropEnabled": 1
                           ,"RotateAngle": 9
                           ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
                           ,"ShowImages": 1
                           ,   "Canny": {"MinValue": 100, "MaxValue": 200 }
-                          , "DividePlateIntoParts": 0
+                          , "DividePlateIntoParts": 0,
+                          "SaveImage": 1
 }
       ,"Thread1Config": {
                         "ThreadSleepTime": 1,
@@ -46,7 +47,7 @@
                         , "SleepTime":  0
                         ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
                         ,"ShowImages": 0
-                        ,"Canny": {"MinValue": 100, "MaxValue": 200 } , "DividePlateIntoParts": 0
+                        ,"Canny": {"MinValue": 100, "MaxValue": 200 } , "DividePlateIntoParts": 0,"SaveImage": 1
 }
       ,"Thread2Config": {
                           "ThreadSleepTime": 1,
@@ -67,6 +68,7 @@
                           ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
                           ,"ShowImages": 0
                           ,   "Canny": {"MinValue": 100, "MaxValue": 200 } , "DividePlateIntoParts": 0
+                          ,"SaveImage": 1
                         }
 }
 

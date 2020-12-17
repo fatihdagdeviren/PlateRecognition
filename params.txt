@@ -3,3 +3,23 @@ pyinstaller -F --noconsole PRMain.py
        ,"CropCoordinates":{"HStart": 250, "HEnd": 600,"WStart":250,"WEnd": 800 }
 ** rtsp://155.223.207.85:554
 **************************************************************************
+
+pyinstaller -F CamTest.py  --add-binary C:\Users\fatih.dagdeviren\AppData\Local\Continuum\anaconda3\pkgs\libopencv-4.5.0-py36_2\Library\bin\opencv_videoio_ffmpeg450_64.dll;.
+pyinstaller -F --add-data C:\Users\fatih.dagdeviren\AppData\Local\Continuum\anaconda3\pkgs\libopencv-4.5.0-py36_2\Library\bin\opencv_videoio_ffmpeg450_64.dll;. CamTest.py
+--C:\Users\fatih.dagdeviren\AppData\Local\Continuum\anaconda3\pkgs\libopencv-4.4.0-py36_3\Library\bin
+
+**************************************************************************
+
+** pyinstaller 3.6 olacak
+
+conda install -n python36 -c anaconda scipy
+
+conda install -n python36 pyinstaller
+
+conda install -n python36 -c conda-forge imutils
+
+conda install -n python36 -c conda-forge pytesseract
+
+conda install -n python36  -c menpo opencv
+
+conda install -n python36 -c anaconda scikit-image
