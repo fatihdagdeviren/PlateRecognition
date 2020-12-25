@@ -19,13 +19,13 @@
                           ,"ResizeDimension": {
                                 "Height": 480, "Width": 640
                           }
-                          ,"CropCoordinates":{"HStart": 150, "HEnd": 400,"WStart":250,"WEnd": 750 }
+                          ,"CropCoordinates":{"HStart": 200, "HEnd": 350,"WStart":0,"WEnd": 500 }
                           ,"EnableLog": 1
                           ,"CropEnabled": 1
                           ,"RotateAngle": 9
                           ,"URL": "rtsp://admin:admin1234@155.223.207.86/main"
                           ,"ShowImages": 1
-                          ,   "Canny": {"MinValue": 100, "MaxValue": 200 }
+                          ,   "Canny": {"MinValue": 50, "MaxValue": 150 }
                           , "DividePlateIntoParts": 0,
                           "SaveImage": 1
 }

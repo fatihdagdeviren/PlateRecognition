@@ -8,7 +8,7 @@ import cv2
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 class UniPlateRecognition:
-        def __init__(self, minAR=4, maxAR=5, debug=False):
+        def __init__(self, minAR=1, maxAR=6, debug=False):
             # store the minimum and maximum rectangular aspect ratio
             # values along with whether or not we are in debug mode
 
@@ -76,7 +76,7 @@ class UniPlateRecognition:
             # find contours in the thresholded image and sort them by
             # their size in descending order, keeping only the largest
             # ones
-            (new, cnts, _) = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
+            cnts, new = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
                 cv2.CHAIN_APPROX_SIMPLE)
             # cnts = imutils.grab_contours(cnts)
             cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[:keep]
@@ -135,7 +135,6 @@ class UniPlateRecognition:
             return options
 
         def find_and_ocr(self, image, psm=7, clearBorder=False):
-
             # initialize the license plate text
             lpText = None
 
@@ -168,8 +167,8 @@ if __name__ == "__main__":
     myClass = UniPlateRecognition()
     myClass.debug = True
     # load the input image from disk and resize it
-    image = cv2.imread("..\\Temp\\3.jpg")
-    image = imutils.resize(image, width=500)
+    image = cv2.imread("..\\temp\\temp10.jpg")
+    # image = imutils.resize(image, width=500)
 
     # apply automatic license plate recognition
     (lpText, lpCnt) = myClass.find_and_ocr(image, psm=7, clearBorder=0)

@@ -3,13 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="21b55909-2fcb-4afb-b116-d64b00173b97" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CamTest.spec" beforeDir="false" afterPath="$PROJECT_DIR$/CamTest.spec" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/MySingleModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/MySingleModel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/MyThreadModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Models/MyThreadModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PRMain.py" beforeDir="false" afterPath="$PROJECT_DIR$/PRMain.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PlateRecognizer/PlateRecognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/PlateRecognizer/PlateRecognition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/params.txt" beforeDir="false" afterPath="$PROJECT_DIR$/params.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PlateRecognizer/PlateRecognitionv2.py" beforeDir="false" afterPath="$PROJECT_DIR$/PlateRecognizer/PlateRecognitionv2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Temp/car.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Temp/car2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Temp/car3.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,10 +209,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.PRMain (1)" />
+        <item itemvalue="Python.PlateRecognitionv2" />
         <item itemvalue="Python.PRMain" />
         <item itemvalue="Python.CamTest" />
         <item itemvalue="Python.MyMLModelBuilder" />
-        <item itemvalue="Python.PlateRecognitionv2" />
       </list>
     </recent_temporary>
   </component>
@@ -245,7 +246,7 @@
       <workItem from="1606895418349" duration="41277000" />
       <workItem from="1607584729199" duration="1354000" />
       <workItem from="1607924717000" duration="33496000" />
-      <workItem from="1608104017101" duration="7009000" />
+      <workItem from="1608104017101" duration="37133000" />
     </task>
     <servers />
   </component>
@@ -284,50 +285,50 @@
     <state x="307" y="346" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1608016286559" />
     <state x="307" y="346" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608104558363" />
     <state x="2227" y="346" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1607956140489" />
-    <state width="524" height="889" key="GridCell.Tab.0.bottom" timestamp="1608185838185">
+    <state width="524" height="889" key="GridCell.Tab.0.bottom" timestamp="1608873709429">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="524" height="889" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608025610640" />
-    <state width="524" height="889" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608185838185" />
+    <state width="524" height="889" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608873709429" />
+    <state width="524" height="889" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608823155208" />
     <state width="524" height="889" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1607959779937" />
-    <state width="524" height="889" key="GridCell.Tab.0.center" timestamp="1608185838185">
+    <state width="524" height="889" key="GridCell.Tab.0.center" timestamp="1608873709429">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="524" height="889" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608025610639" />
-    <state width="524" height="889" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608185838185" />
+    <state width="524" height="889" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608873709429" />
+    <state width="524" height="889" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608823155207" />
     <state width="524" height="889" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1607959779937" />
-    <state width="524" height="889" key="GridCell.Tab.0.left" timestamp="1608185838185">
+    <state width="524" height="889" key="GridCell.Tab.0.left" timestamp="1608873709429">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="524" height="889" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608025610639" />
-    <state width="524" height="889" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608185838185" />
+    <state width="524" height="889" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608873709429" />
+    <state width="524" height="889" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608823155206" />
     <state width="524" height="889" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1607959779937" />
-    <state width="524" height="889" key="GridCell.Tab.0.right" timestamp="1608185838185">
+    <state width="524" height="889" key="GridCell.Tab.0.right" timestamp="1608873709429">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="524" height="889" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608025610639" />
-    <state width="524" height="889" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608185838185" />
+    <state width="524" height="889" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608873709429" />
+    <state width="524" height="889" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608823155207" />
     <state width="524" height="889" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1607959779937" />
-    <state width="529" height="889" key="GridCell.Tab.1.bottom" timestamp="1608185749218">
+    <state width="529" height="889" key="GridCell.Tab.1.bottom" timestamp="1608822860928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="529" height="889" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608012296123" />
-    <state width="529" height="889" key="GridCell.Tab.1.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608185749218" />
-    <state width="529" height="889" key="GridCell.Tab.1.center" timestamp="1608185749218">
+    <state width="529" height="889" key="GridCell.Tab.1.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608822860928" />
+    <state width="529" height="889" key="GridCell.Tab.1.center" timestamp="1608822860928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="529" height="889" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608012296123" />
-    <state width="529" height="889" key="GridCell.Tab.1.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608185749218" />
-    <state width="529" height="889" key="GridCell.Tab.1.left" timestamp="1608185749218">
+    <state width="529" height="889" key="GridCell.Tab.1.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608822860928" />
+    <state width="529" height="889" key="GridCell.Tab.1.left" timestamp="1608822860928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="529" height="889" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608012296123" />
-    <state width="529" height="889" key="GridCell.Tab.1.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608185749218" />
-    <state width="529" height="889" key="GridCell.Tab.1.right" timestamp="1608185749218">
+    <state width="529" height="889" key="GridCell.Tab.1.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608822860928" />
+    <state width="529" height="889" key="GridCell.Tab.1.right" timestamp="1608822860928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="529" height="889" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608012296123" />
-    <state width="529" height="889" key="GridCell.Tab.1.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608185749218" />
+    <state width="529" height="889" key="GridCell.Tab.1.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1608822860928" />
     <state x="461" y="162" key="SettingsEditor" timestamp="1608104582468">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -365,14 +366,59 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Models/MyThreadModel.py</url>
-          <line>159</line>
-          <option name="timeStamp" value="183" />
+          <url>file://$PROJECT_DIR$/Models/MySingleModel.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="250" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Models/MySingleModel.py</url>
-          <line>90</line>
-          <option name="timeStamp" value="249" />
+          <line>55</line>
+          <option name="timeStamp" value="252" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Models/MySingleModel.py</url>
+          <line>71</line>
+          <option name="timeStamp" value="253" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PlateRecognizer/PlateRecognition.py</url>
+          <line>106</line>
+          <option name="timeStamp" value="263" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PlateRecognizer/PlateRecognitionv2.py</url>
+          <line>145</line>
+          <option name="timeStamp" value="264" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PlateRecognizer/PlateRecognitionv2.py</url>
+          <line>103</line>
+          <option name="timeStamp" value="266" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PlateRecognizer/PlateRecognitionv2.py</url>
+          <line>123</line>
+          <option name="timeStamp" value="267" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PlateRecognizer/PlateRecognitionv2.py</url>
+          <line>176</line>
+          <option name="timeStamp" value="268" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PlateRecognizer/PlateRecognitionv2.py</url>
+          <line>152</line>
+          <option name="timeStamp" value="270" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Models/MySingleModel.py</url>
+          <line>60</line>
+          <option name="timeStamp" value="272" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PlateRecognizer/PlateRecognition.py</url>
+          <line>135</line>
+          <option name="timeStamp" value="274" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -385,8 +431,8 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/PlateRecognition$PRMain__1_.coverage" NAME="PRMain (1) Coverage Results" MODIFIED="1608185838178" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PlateRecognition$PlateRecognitionv2.coverage" NAME="PlateRecognitionv2 Coverage Results" MODIFIED="1604658133046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PlateRecognizer" />
+    <SUITE FILE_PATH="coverage/PlateRecognition$PRMain__1_.coverage" NAME="PRMain (1) Coverage Results" MODIFIED="1608873709423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PlateRecognition$PlateRecognitionv2.coverage" NAME="PlateRecognitionv2 Coverage Results" MODIFIED="1608817711084" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PlateRecognizer" />
     <SUITE FILE_PATH="coverage/PlateRecognition$main.coverage" NAME="main Coverage Results" MODIFIED="1602656987986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlateRecognition$CamTest.coverage" NAME="CamTest Coverage Results" MODIFIED="1607951423254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlateRecognition$PRMain.coverage" NAME="PRMain Coverage Results" MODIFIED="1607951793329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

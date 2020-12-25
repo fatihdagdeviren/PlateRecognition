@@ -54,15 +54,17 @@ class myThread (threading.Thread):
       returnText = plateText
       try:
          arr = plateText.split(' ')
-         returnVal = True
+         returnVal = False
          if len(arr) == 3:
-            basBolum = arr[0].replace('O', '0').replace("Z", "2").replace('G', '6').replace('B', '8').replace('S', '5').replace('D', '0').replace('A', '4').replace('U', '4')
+            basBolum = arr[0].replace('O', '0').replace("Z", "2").replace('G', '6').replace('B', '8').replace('S', '5').replace('D', '0').replace('A', '4').replace('U', '4').replace('E','6')
             ortaBolum = arr[1].replace('0', 'O').replace('2', 'Z').replace('6', 'G').replace('8', 'B').replace('5', 'S').replace('4', 'A')
-            sonBolum = arr[2].replace('O', '0').replace("Z", "2").replace('G', '6').replace('B', '8').replace('S', '5').replace('D', '0').replace('A', '4').replace('U', '4')
+            sonBolum = arr[2].replace('O', '0').replace("Z", "2").replace('G', '6').replace('B', '8').replace('S', '5').replace('D', '0').replace('A', '4').replace('U', '4').replace('E','6')
             returnText = "{0}{1}{2}".format(basBolum, ortaBolum, sonBolum)
             returnValBas, boolValBas = self.intTryParse(basBolum)
             returnValSon, boolValSon = self.intTryParse(sonBolum)
             returnVal = (boolValBas and boolValSon) and (len(basBolum) == 2)
+         else:
+            returnVal = (len(returnText) == 7 or len(returnText == 8))
          return returnText, returnVal
       except BaseException as e:
          return returnText, False
@@ -85,8 +87,8 @@ class myThread (threading.Thread):
                      filteredText = text.replace('\n', '').replace('\r', '').replace('\t', '').replace('\f', '').rstrip()
                      self.result, returnValCheckPlate = self.checkPlate(filteredText)
                      # print(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+                     self.appendLog(self.result + "-" + str(returnValCheckPlate) + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                      if bool(returnValCheckPlate):
-                        self.appendLog(self.result + "-" + datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + "\n")
                         if self.Config["SendImageFromUDP"] == 0:
                            self.base64Image = ""
                         object = {

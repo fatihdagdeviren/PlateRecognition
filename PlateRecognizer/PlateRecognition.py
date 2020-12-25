@@ -69,8 +69,7 @@ class PlateRecognizer():
                 image = image[self.configuration["CropCoordinates"]["HStart"]:self.configuration["CropCoordinates"]["HEnd"]
                 , self.configuration["CropCoordinates"]["WStart"]:self.configuration["CropCoordinates"]["WEnd"]]
                 image = cv2.resize(image, None, fx=2, fy=2)
-                # cv2.imshow("image",image)
-                # cv2.waitKey(1)
+
 
             # cv2.imshow("image", image)
             # cv2.waitKey(0)
@@ -91,8 +90,12 @@ class PlateRecognizer():
                 minValue = int(cannyParams["MinValue"])
                 maxValue = int(cannyParams["MaxValue"])
 
+            #BlackHat
+            # rectKern = cv2.getStructuringElement(cv2.MORPH_RECT, (20, 20))
+            # gray = cv2.morphologyEx(gray, cv2.MORPH_BLACKHAT, rectKern)
+
             # Canny
-            gray = cv2.GaussianBlur(gray, (5, 5), 0)
+            gray = cv2.GaussianBlur(gray, (3, 3), 0)
             edged = cv2.Canny(gray, minValue, maxValue)
 
             # Morph Dilation
@@ -100,6 +103,10 @@ class PlateRecognizer():
 
             (cnts, new) = cv2.findContours(dilation.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
             cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[:30]
+
+            # cv2.drawContours(dilation,cnts,0,(0,255,0),3)
+            # cv2.imshow("dilation",dilation)
+            # cv2.waitKey(0)
 
             NumberPlateCnts = []
             for c in cnts:
@@ -110,6 +117,7 @@ class PlateRecognizer():
                     NumberPlateCnts.append(approx)
 
             if len(NumberPlateCnts) == 0:
+                print("plaka Bulunamadi")
                 return False, "Plaka Bulunamadi.", "", None, []
 
 
@@ -119,9 +127,6 @@ class PlateRecognizer():
             for NumberPlateCnt in NumberPlateCnts:
                 new_image = cv2.drawContours(mask, [NumberPlateCnt], 0, 255, -1)
                 new_image = cv2.bitwise_and(image, image, mask=mask)
-
-                # cv2.imshow("Gercek Resim111", new_image)
-                # cv2.imwrite("new_image.jpg",new_image)
 
                 x, y, w, h = cv2.boundingRect(NumberPlateCnt)
                 rect = cv2.minAreaRect(NumberPlateCnt)
@@ -138,40 +143,41 @@ class PlateRecognizer():
                     M = cv2.getRotationMatrix2D(center, angle, 1.0)
                     roiImage = cv2.warpAffine(roiImage, M, (w, h),
                                              flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
-                        # roiImage = imutils.rotate(roiImage, angle=math.ceil(angle))
-                        # cv2.imshow("roiImageAffine", roiImageAffine)
+
+
+                    # # BlackHat
+                    # rectKern = cv2.getStructuringElement(cv2.MORPH_RECT, (20, 20))
+                    # roiImage = cv2.morphologyEx(roiImage, cv2.MORPH_BLACKHAT, rectKern)
+                    # cv2.imshow("BlackHat", roiImage)
+                    #
 
                     roiImage = cv2.cvtColor(roiImage, cv2.COLOR_BGR2GRAY)
                     roiImage = cv2.bilateralFilter(roiImage, 11, 21, 21)
+                    cv2.imshow("roiImag33333", roiImage)
 
                     (cntsRoi, newRoi) = cv2.findContours(roiImage.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                     cntsRoi = sorted(cntsRoi, key=cv2.contourArea, reverse=True)[0]
                     xPlate, yPlate, wPlate, hPlate = cv2.boundingRect(cntsRoi)
                     roiImage = roiImage[yPlate:yPlate + hPlate, xPlate:xPlate + wPlate]
-                    # cv2.imshow("roiPlate",roiPlate)
 
-                    # roiImage = cv2.morphologyEx(roiImage, cv2.MORPH_OPEN, kernelForDilationRoiImage)
                     roiImage = cv2.dilate(roiImage, kernel=kernelForDilation, iterations=1)
                     roiImage = cv2.erode(roiImage, kernel=kernelForDilationRoiImage, iterations=1)
-                    roiImage = cv2.threshold(roiImage, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+
+                    roiImage = cv2.GaussianBlur(roiImage, (5, 5), 0)
+
+                    ret3, roiImage = cv2.threshold(roiImage, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+                    (hR, wR) = roiImage.shape[:2]
+                    roiImage = roiImage[5:hR-5, 5:wR-5]
+
+
                     # # Invert and perform text extraction
-                    # roiImage = 255 - roiImage
-
-                    # roiImage = cv2.dilate(roiImage, kernel=kernelForDilation, iterations=3)
-
-                    # roiImage = cv2.erode(roiImage, kernel=kernelForDilation, iterations=1)
-
-                    roiImage = clear_border(roiImage)
-
-                    # roiImage = 255 - roiImage
-                    # roiImage = cv2.resize(roiImage, None ,fx=3, fy=2)
-                    # roiImage = cv2.bilateralFilter(roiImage, 11, 21, 21)
+                    roiImage = 255 - roiImage
 
                     # roiImage = cv2.dilate(roiImage, kernel=kernelForDilation, iterations=1)
+                    # roiImage = cv2.erode(roiImage, kernel=kernelForDilation, iterations=1)
 
-                    # roiImage = cv2.bilateralFilter(roiImage, 11, 21, 21)
-                    # roiImage = cv2.morphologyEx(roiImage, cv2.MORPH_OPEN, kernelForDilationRoiImage)
-                    # roiImage = 255 - roiImage
+                    # roiImage = clear_border(roiImage)
 
                     break
 
